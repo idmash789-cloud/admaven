@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konfirmasi Keamanan</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #1f2937;
+  }
+  /* Latar redup di balik pop-up */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .popup {
+    position: relative;
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    padding: 32px 28px 24px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  }
+  .close-x {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .close-x:hover { background: #e5e7eb; color: #111827; }
+  .shield {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: #ecfdf5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shield svg { width: 40px; height: 40px; }
+  h1 { font-size: 22px; margin-bottom: 10px; }
+  p { font-size: 15px; line-height: 1.6; color: #4b5563; margin-bottom: 12px; }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ecfdf5;
+    color: #047857;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    margin: 4px 0 22px;
+  }
+  .status .dot { width: 9px; height: 9px; border-radius: 50%; background: #10b981; }
+  .buttons { display: flex; flex-direction: column; gap: 10px; }
+  .btn {
+    display: block;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn-next { background: #2563eb; color: #ffffff; }
+  .btn-next:hover { background: #1d4ed8; }
+  .btn-close { background: #f3f4f6; color: #374151; }
+  .btn-close:hover { background: #e5e7eb; }
+  .note { font-size: 12px; color: #9ca3af; margin-top: 18px; }
+</style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+      <a class="close-x" href="https://www.home.com" aria-label="Tutup">&times;</a>
+
+      <div class="shield" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L4 5.5V11C4 16.5 7.5 20.5 12 22C16.5 20.5 20 16.5 20 11V5.5L12 2Z" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M8.5 12L11 14.5L15.5 10" stroke="#047857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <h1 id="popup-title">Koneksi Aman</h1>
+      <p>Jaringan Anda telah diperiksa dan situs ini aman untuk dilanjutkan.</p>
+
+      <div class="status"><span class="dot"></span> Pemeriksaan selesai &middot; Aman</div>
+
+      <div class="buttons">
+        <a class="btn btn-next" href="https://www.fb.com">Lanjut</a>
+        <a class="btn btn-close" href="https://www.home.com">Tutup</a>
+      </div>
+
+      <p class="note">Klik Lanjut untuk ke fb.com, atau Tutup untuk ke home.com.</p>
+    </div>
+  </div>
+</body>
+</html>
