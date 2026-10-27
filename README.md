@@ -1,20 +1,21 @@
-# admaven — Halaman Konfirmasi
+# admaven — Confirmation Page
 
-Halaman konfirmasi satu file (`index.html`), tanpa build step.
+A single-file confirmation page (`index.html`), no build step. Fully in English.
 
-## Cara kerja
+## How it works
 
-Pop-up di tengah layar menampilkan status "Koneksi Aman", dengan dua tombol:
+A centered pop-up shows a "Secure Connection" status, with an animated 5-second countdown (number + shrinking progress bar).
 
-- **Lanjut** → https://www.fb.com
-- **Tutup** (dan tombol `×` di pojok pop-up) → https://www.home.com
+- **Next** → https://www.fb.com
+- **Close** (and the `×` button in the pop-up corner) → https://www.home.com
+- **No choice within 5 seconds** → automatically redirected to https://www.save.com
 
-Tombol memakai link biasa (`<a href>`), jadi tetap berfungsi walau JavaScript nonaktif. Tidak ada redirect otomatis — perpindahan hanya terjadi saat tombol diklik.
+Clicking Next or Close cancels the countdown timer, so the chosen link always wins. The buttons are plain links (`<a href>`), so they still work if JavaScript is disabled — only the auto-redirect needs JavaScript.
 
-## Menjalankan / deploy
+## Run / deploy
 
-- Lokal: buka `index.html` di browser.
-- GitHub Pages: Settings → Pages → Deploy from a branch → `main` / root, lalu buka URL Pages repo ini.
-- Cloudflare Pages: hubungkan repo ini, build command kosong, output directory root.
+- Locally: open `index.html` in a browser.
+- GitHub Pages: Settings → Pages → Deploy from a branch → `main` / root, then open this repo's Pages URL.
+- Cloudflare Pages: connect this repo, empty build command, root output directory.
 
-Catatan: halaman ini adalah pop-up konfirmasi generik buatan sendiri, bukan halaman resmi Cloudflare.
+Note: this is a generic, self-made confirmation pop-up, not an official Cloudflare page.

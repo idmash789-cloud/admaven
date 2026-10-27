@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Konfirmasi Keamanan</title>
+<title>Security Confirmation</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -16,7 +16,7 @@
     padding: 20px;
     color: #1f2937;
   }
-  /* Latar redup di balik pop-up */
+  /* Dimmed background behind the pop-up */
   .overlay {
     position: fixed;
     inset: 0;
@@ -78,9 +78,41 @@
     font-weight: 600;
     padding: 8px 14px;
     border-radius: 999px;
-    margin: 4px 0 22px;
+    margin: 4px 0 18px;
   }
   .status .dot { width: 9px; height: 9px; border-radius: 50%; background: #10b981; }
+  .countdown { margin-bottom: 20px; }
+  .countdown-text { font-size: 14px; color: #4b5563; margin-bottom: 8px; }
+  .countdown-number {
+    display: inline-block;
+    font-size: 36px;
+    font-weight: 800;
+    color: #2563eb;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .countdown-number.pop { animation: pop 0.45s ease; }
+  @keyframes pop {
+    0% { transform: scale(1.35); opacity: 0.4; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .progress-track {
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 100%;
+    background: #2563eb;
+    border-radius: 999px;
+    animation: shrink 5s linear forwards;
+  }
+  @keyframes shrink {
+    from { width: 100%; }
+    to { width: 0%; }
+  }
   .buttons { display: flex; flex-direction: column; gap: 10px; }
   .btn {
     display: block;
@@ -101,7 +133,7 @@
 <body>
   <div class="overlay">
     <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
-      <a class="close-x" href="https://www.home.com" aria-label="Tutup">&times;</a>
+      <a class="close-x" href="https://www.home.com" aria-label="Close" data-cancel-countdown>&times;</a>
 
       <div class="shield" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,18 +142,48 @@
         </svg>
       </div>
 
-      <h1 id="popup-title">Koneksi Aman</h1>
-      <p>Jaringan Anda telah diperiksa dan situs ini aman untuk dilanjutkan.</p>
+      <h1 id="popup-title">Secure Connection</h1>
+      <p>Your network has been checked and this site is safe to continue.</p>
 
-      <div class="status"><span class="dot"></span> Pemeriksaan selesai &middot; Aman</div>
+      <div class="status"><span class="dot"></span> Check complete &middot; Secure</div>
 
-      <div class="buttons">
-        <a class="btn btn-next" href="https://www.fb.com">Lanjut</a>
-        <a class="btn btn-close" href="https://www.home.com">Tutup</a>
+      <div class="countdown" aria-live="polite">
+        <p class="countdown-text">Redirecting automatically to save.com in</p>
+        <div class="countdown-number" id="countdown-number">5</div>
+        <div class="progress-track"><div class="progress-bar"></div></div>
       </div>
 
-      <p class="note">Klik Lanjut untuk ke fb.com, atau Tutup untuk ke home.com.</p>
+      <div class="buttons">
+        <a class="btn btn-next" href="https://www.fb.com" data-cancel-countdown>Next</a>
+        <a class="btn btn-close" href="https://www.home.com" data-cancel-countdown>Close</a>
+      </div>
+
+      <p class="note">Click Next to go to fb.com, or Close to go to home.com. Otherwise you will be redirected to save.com automatically.</p>
     </div>
   </div>
+
+  <script>
+    (function () {
+      var secondsLeft = 5;
+      var numberEl = document.getElementById('countdown-number');
+      var timer = setInterval(function () {
+        secondsLeft -= 1;
+        if (secondsLeft <= 0) {
+          clearInterval(timer);
+          window.location.href = 'https://www.save.com';
+          return;
+        }
+        numberEl.textContent = secondsLeft;
+        numberEl.classList.remove('pop');
+        void numberEl.offsetWidth; // restart the pop animation
+        numberEl.classList.add('pop');
+      }, 1000);
+
+      // Clicking Next or Close cancels the auto-redirect so the chosen link wins.
+      document.querySelectorAll('[data-cancel-countdown]').forEach(function (el) {
+        el.addEventListener('click', function () { clearInterval(timer); });
+      });
+    })();
+  </script>
 </body>
 </html>
